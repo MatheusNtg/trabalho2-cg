@@ -8,5 +8,5 @@ sudo apt-get install libglut3 libglut3-dev
 ## Instruções para a compilação dos programas
 
 ```bash
-gcc -o programa programa.c -lGL -lGLU -lglut
+gcc -o programa programa.c -lGL -lGLU -lglut -lm
 ```
