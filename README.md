@@ -3,7 +3,7 @@ Repositório do trabalho 2 CG
 
 ## Dependências
 ```bash
-sudo apt-get install libglut3 libglut3-dev
+sudo apt-get install freeglut3-dev
 ```
 ## Instruções para a compilação dos programas
 
