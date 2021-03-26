@@ -8,5 +8,5 @@ sudo apt-get install freeglut3-dev
 ## Instruções para a compilação dos programas
 
 ```bash
-gcc -o programa programa.c -lGL -lGLU -lglut -lm
+bash run_parte1.sh
 ```

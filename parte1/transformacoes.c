@@ -11,6 +11,7 @@ typedef struct triangulo
     float pontos[3][3];
 } Triangulo;
 
+/* Marizes de transformação */
 typedef struct matrix
 {
     float elementos[3][3];
@@ -33,6 +34,7 @@ int main(int argc, char **argv)
     return 0;
 }
 
+/* Aplicação as transformações*/
 Triangulo transforma(Triangulo exemplo, Matrix A)
 {
     // Zera os pontos para não pegar lixo de memória
@@ -54,6 +56,7 @@ Triangulo transforma(Triangulo exemplo, Matrix A)
     return result;
 }
 
+/* Realiza a multiplicação entre duas matrizes de transformação*/
 Matrix multiplica_matrix(Matrix A, Matrix B)
 {
     Matrix result = {
@@ -74,6 +77,7 @@ Matrix multiplica_matrix(Matrix A, Matrix B)
     return result;
 }
 
+/* Realiza translação*/
 Matrix translada(float x, float y)
 {
     Matrix resultado = {
@@ -87,6 +91,7 @@ Matrix translada(float x, float y)
     return resultado;
 }
 
+/* Realiza escalonamento*/
 Matrix escala(float fator)
 {
     Matrix resultado = {
@@ -100,6 +105,7 @@ Matrix escala(float fator)
     return resultado;
 }
 
+/* Realiza rotação*/
 Matrix rotaciona(float degree)
 {
     float rad = (degree * M_PI) / 180;
@@ -114,6 +120,7 @@ Matrix rotaciona(float degree)
     return resultado;
 }
 
+/* Auxilia na visualização de matrizes (debug) */
 void print_matrix(float matrix[3][3]) {
     for (int i = 0; i < 3; i++) {
         for (int k = 0; k < 3; k++) {
@@ -159,6 +166,8 @@ void display(void)
 
     // Desenha Triangulo transformado
     Triangulo t = transforma(exemplo, resultante);
+
+    glColor3f(0.0, 0.0, 1.0); //cor linha
 
     glBegin(GL_TRIANGLES);
     for (int lado = 0; lado < 3; lado++)
