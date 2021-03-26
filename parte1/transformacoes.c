@@ -11,7 +11,7 @@ typedef struct triangulo
     float pontos[3][3];
 } Triangulo;
 
-/* Marizes de transformação */
+/* Mat	rizes */
 typedef struct matrix
 {
     float elementos[3][3];
@@ -145,16 +145,16 @@ void display(void)
     };
 
     // Matriz de translação
-    Matrix matriz_transformacao1 = translada(-.5, -.5);
+    Matrix matrix_translacao = translada(-.5, -.5);
 
     // Matriz de rotação
-    Matrix matriz_transformacao2 = rotaciona(45);
+    Matrix matrix_rotacao = rotaciona(90);
 
     // Matriz de escala
-    Matrix matriz_transformacao3 = escala(0.5);
+    Matrix matrix_escala = escala(0.5);
 
-    Matrix resultante = multiplica_matrix(matriz_transformacao1, matriz_transformacao2);
-    resultante = multiplica_matrix(resultante, matriz_transformacao3);
+    Matrix resultante = multiplica_matrix(matrix_translacao, matrix_rotacao);
+    resultante = multiplica_matrix(resultante, matrix_escala);
 
     // Desenha Triangulo
     glBegin(GL_TRIANGLES);
