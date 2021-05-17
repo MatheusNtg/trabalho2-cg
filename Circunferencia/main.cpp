@@ -20,7 +20,7 @@ int raio = 100;
 
     int x = 0;
     int y = raio;
-    /* p é o nosso ponto médio inicial. Seu valor se da por 5/4 - 1 , porém ao usar valores
+    /* p é o nosso ponto médio inicial. Seu valor se da por 5/4 - r , porém ao usar valores
        de raio inteiro , podemos arredondar seu valor inicial para 1 - raio, porque todos
        os incrementos serão inteiros.
     */
