@@ -63,7 +63,7 @@ int raio = 100;
 
          glBegin(GL_POINTS);
                 /* Cada iteração do algoritmo desenha o ponto nos
-                    8 quadrantes de forma simetrica.
+                    8 octantes de forma simetrica.
                 */
              glVertex2i(xCentro + x, yCentro + y);
              glVertex2i(xCentro - x, yCentro + y);
