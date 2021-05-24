@@ -16,15 +16,21 @@ void OtimizacaoRetas()
 {
     int dx, dy, incE, incNE ,d, x, y;
     int x1, y1, x2, y2;
-    x1 = 50;
+
+    x1 = 50; // ponto inferior esquerdo
     y1 = 80;
-    x2 = 220;
+
+    x2 = 220; // ponto superior direito
     y2 = 310;
 
-
+    // d é a variável de decisão
     dx = x2 - x1;
     dy = y2 - y1;
-    d = 2* dy - dx;
+    d = 2* dy - dx; // Valor inical da variável de decisão.
+                    // é multiplicada por 2 para evitar fração
+                    // nao afeta o sinal da variável de decisão
+
+
     incE = 2 * dy;
     incNE = 2* (dy - dx);
     x = x1;
@@ -33,9 +39,11 @@ void OtimizacaoRetas()
 
     while ( x < x2 ){
         if ( d <= 0 ){
+                /* Escolhe E */
             d = d + incE;
             x = x + 1;
         }else{
+                /*Escolhe NE */
             d = d + incNE;
             x++;
             y++;
