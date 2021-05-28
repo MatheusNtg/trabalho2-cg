@@ -1,3 +1,3 @@
-gcc -c c.c -lGL -lGLU -lglut
-gcc -o c c.c -lGL -lGLU -lglut
-./c
+gcc -c Cubo_Perspectiva.c -lGL -lGLU -lglut -lm
+gcc -o Cubo_Perspectiva Cubo_Perspectiva.c -lGL -lGLU -lglut -lm
+./Cubo_Perspectiva
