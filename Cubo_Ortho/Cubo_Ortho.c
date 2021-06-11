@@ -3,7 +3,7 @@
 
 const char *NOME_PROGRAMA = "Cubo Perspectiva";
 void perspectiva(float *matrix, float fovyInDegrees, float aspectRatio, float znear, float zfar);
-void multiplica_matrix(float *matrix, float left, float right, float bottom, float top, float znear, float zfar);
+void multiplica_matrix(float *matrix, float left, float right, float bottom, float top, float tx, float ty, float tz, float nearVal, float farVal);
 
 void initGL() {
    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Cor de Fundo - Preta
@@ -96,48 +96,44 @@ void reshape(GLsizei width, GLsizei height) {
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
 
-   // Projeção em Perspectiva em que:
+   // Projeção em Ortogonal em que:
    /**
-   * Primeiro argumento: Angulo de visão alfa
-   * Segundo argumento: razão entre largura e altura da janela atual
-   * Terceiro argumento: Plano de Projeção (distância "d" entre o centro de projeção e o plano de projeção)
-   * Quarto argumento: Ponto a projetar (distância entre o centro de projeção e o ponto a ser projetado)
+   * Primeiro e segundos argumentos: Especificação das cordenadas verticais do plano.
+   * Terceiro e quarto argumentos: Especificação das cordenadas horizontais do plano.
+   * Quinto e sexto argumentos: Especifica as distancias dos planos mais pertos e mais longes de um objeto.
    **/
-   // gluPerspective(45.0f, aspect, 0.5f, 100.0f);
-   glOrtho(-10.0, 10.0, -10.0, 10.0, 0.0, 40.0);
+   glOrtho(-10.0, 10.0, -10.0, 10.0, 0.0, 10.0);
 }
 
 // Implementação matricial
-void perspectiva(float *matrix, float fovyInDegrees, float aspectRatio, float znear, float zfar) {
-    float ymax, xmax;
-    float temp, temp2, temp3, temp4;
-    ymax = znear * tanf(fovyInDegrees * M_PI / 360.0); // Tamanho do plano de projeção no eixo y
-    xmax = ymax * aspectRatio; // Tamanho do plano de projeção no eixo x, considerando a janela.
-    multiplica_matrix(matrix, -xmax, xmax, -ymax, ymax, znear, zfar);
+void ortogonal(float *matrix, float left, float right, float bottom, float top, float nearVal, float farVal){
+   int tx, ty, tz;
+
+   tx= -(right+left*right-left);
+   ty = - (top+bottom*top-bottom);
+   tz = - (farVal + nearVal*farVal-nearVal);
+
+   multiplica_matrix(matrix, left, right, bottom, top, tx, ty, tz, nearVal, farVal);
 }
 
-void multiplica_matrix(float *matrix, float left, float right, float bottom, float top, float znear, float zfar) {
-    float temp, temp2, temp3, temp4;
-    temp = 2.0 * znear;
-    temp2 = right - left;
-    temp3 = top - bottom;
-    temp4 = zfar - znear;
-    matrix[0] = temp / temp2;
+// Realiza a multiplicação de matrizes
+void multiplica_matrix(float *matrix, float left, float right, float bottom, float top, float tx, float ty, float tz, float nearVal, float farVal) {
+    matrix[0] = 2 / (right - left);
     matrix[1] = 0.0;
     matrix[2] = 0.0;
     matrix[3] = 0.0;
     matrix[4] = 0.0;
-    matrix[5] = temp / temp3;
+    matrix[5] = 2 / (top - bottom);
     matrix[6] = 0.0;
     matrix[7] = 0.0;
-    matrix[8] = (right + left) / temp2;
-    matrix[9] = (top + bottom) / temp3;
-    matrix[10] = (-zfar - znear) / temp4;
-    matrix[11] = -1.0;
-    matrix[12] = 0.0;
-    matrix[13] = 0.0;
-    matrix[14] = (-temp * zfar) / temp4;
-    matrix[15] = 0.0;
+    matrix[8] = 0.0;
+    matrix[9] = 0.0;
+    matrix[10] = -2/(farVal - nearVal);
+    matrix[11] = 0.0;
+    matrix[12] = tx;
+    matrix[13] = ty;
+    matrix[14] = tz;
+    matrix[15] = 1.0;
 }
 
 int main(int argc, char** argv) {
